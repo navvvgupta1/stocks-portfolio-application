@@ -57,11 +57,11 @@ public class PortfolioService {
 
         // Create and return the PortfolioSummaryDTO
         return new PortfolioSummaryDTO(
-                totalPLPercentage,    // 1st parameter
-                totalCurrentPrice,    // 2nd parameter
-                holdingResponseDTOs,  // 3rd parameter
-                totalBuyPrice,        // 4th parameter
-                totalPL               // 5th parameter
+                totalPLPercentage,
+                totalCurrentPrice,
+                holdingResponseDTOs,
+                totalBuyPrice,
+                totalPL
         );
     }
 

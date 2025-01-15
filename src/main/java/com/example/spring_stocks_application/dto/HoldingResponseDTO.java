@@ -23,5 +23,61 @@ public class HoldingResponseDTO {
         this.currentPrice = currentPrice;
         this.gainLoss = gainLoss;
     }
+
+    public int getGainLoss() {
+        return gainLoss;
+    }
+
+    public void setGainLoss(int gainLoss) {
+        this.gainLoss = gainLoss;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getHoldingId() {
+        return holdingId;
+    }
+
+    public void setHoldingId(Long holdingId) {
+        this.holdingId = holdingId;
+    }
+
+    public Long getStockId() {
+        return stockId;
+    }
+
+    public void setStockId(Long stockId) {
+        this.stockId = stockId;
+    }
+
+    public int getQuantityHold() {
+        return quantityHold;
+    }
+
+    public void setQuantityHold(int quantityHold) {
+        this.quantityHold = quantityHold;
+    }
+
+    public int getBuyPrice() {
+        return buyPrice;
+    }
+
+    public void setBuyPrice(int buyPrice) {
+        this.buyPrice = buyPrice;
+    }
+
+    public int getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(int currentPrice) {
+        this.currentPrice = currentPrice;
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.example.spring_stocks_application.service;
 
+import com.example.spring_stocks_application.dto.HoldingResponseDTO;
 import com.example.spring_stocks_application.entity.Holding;
 import com.example.spring_stocks_application.entity.Stock;
 import com.example.spring_stocks_application.repository.HoldingRepository;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +21,24 @@ public class PortfolioService {
         this.holdingRepository=holdingRepository;
     }
 
-    public List<Holding> getUserHoldings(Long userId) {
-//        System.out.println(userId);
-        List<Holding> hold=holdingRepository.findByUserId(userId);
-        System.out.println(hold);
-        return hold;
+    public List<HoldingResponseDTO> getUserHoldings(Long userId) {
+        // Fetch the holdings from the repository
+        List<Holding> holdings = holdingRepository.findByUserId(userId);
+
+        // Map each Holding to HoldingResponseDTO
+        List<HoldingResponseDTO> holdingResponseDTOs = holdings.stream().map(holding -> {
+            int gainLoss = (holding.getCurrentPrice() - holding.getBuyPrice()) * holding.getQuantityHold();
+            return new HoldingResponseDTO(
+                    holding.getHoldingId(),
+                    holding.getUserId(),
+                    holding.getStockId(),
+                    holding.getQuantityHold(),
+                    holding.getBuyPrice(),
+                    holding.getCurrentPrice(),
+                    gainLoss
+            );
+        }).collect(Collectors.toList());
+        return holdingResponseDTOs;
     }
 
     public Holding createHolding(Holding holding) {

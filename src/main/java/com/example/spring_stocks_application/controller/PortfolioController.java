@@ -1,6 +1,7 @@
 package com.example.spring_stocks_application.controller;
 
 import com.example.spring_stocks_application.dto.HoldingResponseDTO;
+import com.example.spring_stocks_application.dto.PortfolioSummaryDTO;
 import com.example.spring_stocks_application.entity.Holding;
 import com.example.spring_stocks_application.entity.Stock;
 import com.example.spring_stocks_application.service.PortfolioService;
@@ -23,9 +24,9 @@ public class PortfolioController {
     }
 
     @GetMapping("/{userId}")  // The path variable should be userId
-    public List<HoldingResponseDTO> getUserHoldings(@PathVariable Long userId) {
+    public PortfolioSummaryDTO getUserHoldings(@PathVariable Long userId) {
         System.out.println(userId);
-        return portfolioService.getUserHoldings(userId);
+        return portfolioService.getPortfolioSummary(userId);
     }
 
 //    @GetMapping("/buy/")

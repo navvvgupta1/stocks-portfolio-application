@@ -2,8 +2,10 @@ package com.example.spring_stocks_application.controller;
 
 import com.example.spring_stocks_application.entity.Stock;
 import com.example.spring_stocks_application.service.StockService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -50,6 +52,16 @@ public class StockController {
     public ResponseEntity<Void> deleteStock(@PathVariable Long id) {
         stockService.deleteStock(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadStockData(@RequestParam("file") MultipartFile file) {
+        try {
+            stockService.saveStocksFromCsv(file);
+            return ResponseEntity.ok("Stock data uploaded successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to upload stock data: " + e.getMessage());
+        }
     }
 }
 

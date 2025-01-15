@@ -4,7 +4,12 @@ package com.example.spring_stocks_application.service;
 import com.example.spring_stocks_application.entity.Stock;
 import com.example.spring_stocks_application.repository.StockRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +51,38 @@ public class StockService {
     public void deleteStock(Long id) {
         Stock stock = getStockById(id);
         stockRepository.delete(stock);
+    }
+
+    public void saveStocksFromCsv(MultipartFile file) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
+            String line;
+            List<Stock> stocks = new ArrayList<>();
+            boolean isHeader = true;
+
+            while ((line = reader.readLine()) != null) {
+                if (isHeader) { // Skip the header row
+                    isHeader = false;
+                    continue;
+                }
+
+                String[] fields = line.split(",");
+                Stock stock = new Stock();
+                stock.setName(fields[0]);
+                stock.setOpenPrice(Double.parseDouble(fields[2]));
+                stock.setHighPrice(Double.parseDouble(fields[3]));
+                stock.setLowPrice(Double.parseDouble(fields[4]));
+                stock.setClosePrice(Double.parseDouble(fields[5]));
+                stock.setSettlementPrice(Double.parseDouble(fields[6]));
+                stock.setCurrentPrice(Double.parseDouble(fields[7]));
+
+                stocks.add(stock);
+            }
+
+            stockRepository.saveAll(stocks);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse CSV file: " + e.getMessage(), e);
+        }
     }
 }
 

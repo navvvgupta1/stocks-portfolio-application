@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,8 +67,20 @@ public class PortfolioService {
     }
 
     public Holding createHolding(Holding holding) {
-        return holdingRepository.save(holding);
+        // Check if the stock already exists for the given user
+        Optional<Holding> existingHolding = holdingRepository.findByUserIdAndStockId(holding.getUserId(), holding.getStockId());
+
+        if (existingHolding.isPresent()) {
+            // Update the quantityHold if the stock exists
+            Holding updatedHolding = existingHolding.get();
+            updatedHolding.setQuantityHold(updatedHolding.getQuantityHold() + holding.getQuantityHold());
+            return holdingRepository.save(updatedHolding);
+        } else {
+            // Create a new holding if the stock doesn't exist
+            return holdingRepository.save(holding);
+        }
     }
+
     @Transactional
     public void sellStocks(Long userId, Long stockId, int quantity) {
         Holding holding = holdingRepository.findByUserIdAndStockId(userId, stockId)

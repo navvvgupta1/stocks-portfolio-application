@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class Holding {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

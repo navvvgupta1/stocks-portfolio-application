@@ -14,7 +14,7 @@ import java.util.List;
 //import com.example.spring_stocks_application.dto.SimpleHoldingResponse;
 @RestController
 @RequestMapping("/api/portfolio")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class PortfolioController {
 
     private final PortfolioService portfolioService;

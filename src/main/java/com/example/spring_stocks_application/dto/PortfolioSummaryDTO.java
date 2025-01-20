@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 public class PortfolioSummaryDTO {
     private List<HoldingResponseDTO> holdings;
     private int totalBuyPrice;

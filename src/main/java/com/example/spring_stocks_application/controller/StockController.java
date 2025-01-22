@@ -33,6 +33,12 @@ public class StockController {
         return ResponseEntity.ok(stocks);
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<Stock>> searchStocksByName(@PathVariable String name) {
+        List<Stock> stocks = stockService.searchStocksByName(name);
+        return ResponseEntity.ok(stocks);
+    }
+
     // Create a new stock
     @PostMapping
     public ResponseEntity<Stock> createStock(@RequestBody Stock stock) {

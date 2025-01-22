@@ -132,5 +132,9 @@ public class StockService {
             e.printStackTrace();
         }
     }
+
+    public List<Stock> searchStocksByName(String name) {
+        return stockRepository.findByNameContainingIgnoreCase(name);
+    }
 }
 

@@ -57,7 +57,9 @@ public class StockController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadStockData(@RequestParam("file") MultipartFile file) {
         try {
+            System.out.println("Hi");
             stockService.saveStocksFromCsv(file);
+            System.out.println("Hi");
             return ResponseEntity.ok("Stock data uploaded successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to upload stock data: " + e.getMessage());

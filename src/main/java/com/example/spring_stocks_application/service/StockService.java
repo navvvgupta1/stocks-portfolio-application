@@ -90,7 +90,7 @@ public class StockService {
         }
     }
 
-    @Scheduled(cron = "0 0 10 * * ?") // Runs daily at 10 AM
+    @Scheduled(cron = "0 53 19 * * ?") // Runs daily at 10 AM
     public void downloadAndUpdateStockData() {
         try {
             // Download the Bhav file
